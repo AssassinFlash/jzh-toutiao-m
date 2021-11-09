@@ -3,8 +3,23 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// 引入全局样式
+import '@/style/index.less'
+
+// 引入vant组件库
+import Vant from 'vant'
+import 'vant/lib/index.css'
+
+// 自动设置REM基准值
+import 'amfe-flexible'
+
+// 全局注册vant中的组件
+Vue.use(Vant)
+
 Vue.config.productionTip = false
 
+// 创建vue根实例，将router、store配置到根实例中
+// 把APP根组件渲染到#app节点中
 new Vue({
   router,
   store,
