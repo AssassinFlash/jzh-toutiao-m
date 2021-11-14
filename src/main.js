@@ -12,7 +12,6 @@ import 'amfe-flexible'
 
 // 引入全局样式(放到最后，覆盖第三方样式)
 import '@/style/index.less'
-
 // 全局注册vant中的组件
 Vue.use(Vant)
 

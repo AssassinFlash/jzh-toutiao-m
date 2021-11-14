@@ -1,5 +1,6 @@
 // 用户相关的请求模块
 import { request } from '@/utils/request'
+
 // 登录注册
 const login = (user) => {
   return request({
@@ -15,4 +16,18 @@ const sendSms = mobile => {
     url: `/v1_0/sms/codes/${mobile}`
   })
 }
-export { login, sendSms }
+// 获取用户个人信息
+const getCurrentUser = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user'
+  })
+}
+// 获取用户频道列表
+const getUserChannels = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user/channels'
+  })
+}
+export { login, sendSms, getCurrentUser, getUserChannels }

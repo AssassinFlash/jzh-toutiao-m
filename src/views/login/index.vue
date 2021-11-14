@@ -12,7 +12,7 @@
             1.使用van-form包裹表单项van-field
             2.给van-form绑定submit事件，当表单提交时会触发submit事件
               只有表单验证通过，才会调用submit事件
-              注意：表单中只要有按钮，都会触发submit事件
+              注意：表单中只要有按钮，点击按钮都会触发submit事件
             3.使用Field的rules属性定义校验规则
             validate-first为在第一项验证不通过就没必要继续验证下去了
     -->
@@ -128,6 +128,8 @@ export default {
         Toast.success('登录成功')
         // 将后端返回的用户登录状态(token)放到Vuex容器中
         this.$store.commit('setUser', res.data.data)
+        // 登录成功，跳转回原来页面
+        this.$router.back()
       } catch (err) {
         console.log(err)
         console.log('登录失败')
