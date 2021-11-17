@@ -3,7 +3,15 @@
     <!--    导航栏-->
     <van-nav-bar class="app-nav-bar">
       <template #left>
-        <van-button class="search-btn" icon="search" type="info" round size="small">搜索</van-button>
+        <van-button
+          class="search-btn"
+          icon="search"
+          type="info"
+          round
+          size="small"
+          :to="{name:'search'}"
+        >搜索
+        </van-button>
       </template>
       <template #right>
         <van-button class="channel-edit-btn" icon="apps-o" @click="isChannelEditShow=true"></van-button>
@@ -25,6 +33,7 @@
       close-icon-position="top-left"
       :style="{height:'100%'}"
     >
+      <channel-edit :my-channels="channels" :channelActiveIndex="active"></channel-edit>
     </van-popup>
   </div>
 </template>
@@ -32,11 +41,16 @@
 <script>
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list'
+import ChannelEdit from './components/channel-edit'
+import { eventBus } from '@/utils/eventBus'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storage'
 
 export default {
   name: 'HomeIndex',
   components: {
-    ArticleList
+    ArticleList,
+    ChannelEdit
   },
   data () {
     return {
@@ -48,12 +62,42 @@ export default {
   created () {
     this.loadChannels()
   },
+  mounted () {
+    // 从子组件接收频道索引来更换频道
+    // 关闭弹出层
+    eventBus.on('changeChannel', (index) => {
+      this.active = index
+      this.isChannelEditShow = false
+    })
+    eventBus.on('updateActive', index => {
+      this.active = index
+    })
+  },
   methods: {
     // 请求获取频道数据
     async loadChannels () {
-      const res = await getUserChannels()
-      this.channels = res.data.data.channels
+      let channels = []
+      // 已登录，从接口获取频道列表
+      // 未登录，查看本地存储是否有频道列表，有则取出，无则从接口获取
+      if (this.user) {
+        const res = await getUserChannels()
+        channels = res.data.data.channels
+      } else {
+        const localChannels = getItem('user-channels')
+        if (localChannels) {
+          channels = localChannels
+        } else {
+          const res = await getUserChannels()
+          channels = res.data.data.channels
+        }
+      }
+      this.channels = channels
+      // const res = await getUserChannels()
+      // this.channels = res.data.data.channels
     }
+  },
+  computed: {
+    ...mapState(['user'])
   }
 }
 </script>
