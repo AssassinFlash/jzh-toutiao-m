@@ -1,6 +1,6 @@
 <template>
   <!--很多地方都会用到文章项，所以将它封装成一个组件，使用时传数据到这里-->
-  <van-cell class="article-item" clickable>
+  <van-cell class="article-item" clickable :to="{name:'article',params:{articleId:article.art_id}}">
     <template #title>
       <div class="title">{{ article.title }}</div>
     </template>

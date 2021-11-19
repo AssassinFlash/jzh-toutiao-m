@@ -2,10 +2,25 @@
 import axios from 'axios'
 // 数据容器模块
 import store from '@/store/index'
+// import JSONbig from 'json-bigint'
 
 // 创建axios实例
 const request = axios.create({
   baseURL: 'http://toutiao.itheima.net' // 基础路径
+  // transformResponse: [function (data) {
+  //   // 后端返回的可能不是JSON格式字符串
+  //   // 如果不是，JSONbig.parse调用就会报错
+  //   // 使用try-catch捕获异常
+  //   try {
+  //     // 转换成功把结果返回
+  //     return JSONbig.parse(data)
+  //   } catch (err) {
+  //     console.log('转换失败', err)
+  //     return data
+  //   }
+  //   // axios 默认在内部使用JSON.parse来转换处理原始数据
+  //   // return JSON.parse(data)
+  // }]
 })
 
 // 请求拦截器

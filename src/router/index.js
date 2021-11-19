@@ -40,6 +40,12 @@ const routes = [
     path: '/search',
     name: 'search',
     component: () => import('@/views/search/index')
+  },
+  {
+    path: '/article/:articleId', // 动态路由，将id作为路由参数
+    name: 'article',
+    component: () => import('@/views/article/index'),
+    props: true // 开启props传参，会将路由参数作为props传到组件
   }
 ]
 

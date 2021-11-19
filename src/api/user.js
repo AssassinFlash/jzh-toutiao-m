@@ -30,4 +30,21 @@ const getUserChannels = () => {
     url: '/v1_0/user/channels'
   })
 }
-export { login, sendSms, getCurrentUser, getUserChannels }
+// 关注用户
+const addFollow = (target) => {
+  return request({
+    method: 'POST',
+    url: '/v1_0/user/followings',
+    data: {
+      target
+    }
+  })
+}
+// 取消关注用户
+const cancelFollow = (target) => {
+  return request({
+    method: 'DELETE',
+    url: `/v1_0/user/followings/${target}`
+  })
+}
+export { login, sendSms, getCurrentUser, getUserChannels, addFollow, cancelFollow }
