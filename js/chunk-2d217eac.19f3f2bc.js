@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d217eac"],{c988:function(e,n,a){"use strict";a.r(n);var t=function(){var e=this,n=e.$createElement,a=e._self._c||n;return a("div",{staticClass:"qa-container"},[e._v("问答页面")])},c=[],s={name:"QaIndex"},i=s,r=a("2877"),u=Object(r["a"])(i,t,c,!1,null,"79ed489b",null);n["default"]=u.exports}}]);
+//# sourceMappingURL=chunk-2d217eac.19f3f2bc.js.map
