@@ -6,7 +6,7 @@
         <div>{{ comment.reply_count }} 条回复</div>
       </template>
       <template #left>
-        <van-icon name="cross"></van-icon>
+        <van-icon name="cross" @click="onClick"></van-icon>
       </template>
     </van-nav-bar>
     <!-- 当前评论项 -->
@@ -100,6 +100,9 @@ export default {
       } else {
         this.finished = true
       }
+    },
+    onClick () {
+      eventBus.emit('closeReply')
     }
   }
 }

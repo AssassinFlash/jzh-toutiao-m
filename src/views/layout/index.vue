@@ -1,8 +1,11 @@
 <template>
-  <!--  也就是说，layout页的上面是一个路由出口，用来显示下边导航栏点击时访问的路由-->
+  <!--  也就是说，layout页的上面是一个路由出口，或者说是二级路由，是layout的子路由，用来显示下边导航栏点击时访问的路由-->
   <div class="layout-container">
     <!--    子路由出口-->
-    <router-view></router-view>
+    <!--    keepAlive作用了二级路由，现在layout的子路由也可以缓存了-->
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <!--    底部导航栏-->
     <van-tabbar route>
       <van-tabbar-item
@@ -17,7 +20,7 @@
 
 <script>
 export default {
-  name: 'index',
+  name: 'LayoutIndex',
   data () {
     return {
       tabbar: [
@@ -43,6 +46,10 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    // 登录成功了，组件渲染完了，这时候再给组件添加缓存
+    this.$store.commit('addCachePage', 'LayoutIndex')
   }
 }
 </script>

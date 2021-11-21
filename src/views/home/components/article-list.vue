@@ -24,7 +24,7 @@
        判断若屏幕未被数据铺满且数据未加载完成->触发load事件，完成load事件的逻辑，若数据已加载完成则无事发生
        若屏幕下滑到最底部且数据未加载完成->触发load事件，完成load事件的逻辑
    -->
-  <div class="article-list">
+  <div class="article-list" ref="articleList">
     <van-pull-refresh v-model="pulldownLoading" @refresh="onRefresh">
       <van-list
         v-model="loading"
@@ -44,6 +44,8 @@ import { getArticles } from '@/api/article'
 import { Toast } from 'vant'
 // 引入封装的文章item模块
 import ArticleItem from '@/components/article-item/index'
+// 给记录滚动距离函数做防抖处理，否则触发太频繁
+import { debounce } from 'lodash'
 
 export default {
   name: 'ArticleList',
@@ -62,7 +64,8 @@ export default {
       loading: false, // 在load事件中数据处于加载状态
       finished: false, // 是否数据已加载完成
       pre_timestamp: null, // 上一次请求的时间戳
-      pulldownLoading: false // 下拉刷新的loading状态
+      pulldownLoading: false, // 下拉刷新的loading状态
+      scrollTop: 0 // 列表滚动到顶部的距离
     }
   },
   methods: {
@@ -103,6 +106,18 @@ export default {
       })
       this.pre_timestamp = res.data.data.pre_timestamp
     }
+  },
+  mounted () {
+    const articleList = this.$refs.articleList
+    // 监听滚动事件，获得文章列表滚动的位置
+    articleList.onscroll = debounce(() => {
+      this.scrollTop = articleList.scrollTop
+    }, 100)
+  },
+  // 当组件被keepAlive缓存，组件切换的时候它的activated和deactivated钩子函数会执行
+  activated () {
+    // 重新设置文章列表的滚动位置
+    this.$refs.articleList.scrollTop = this.scrollTop
   }
 }
 </script>

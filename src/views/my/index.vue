@@ -12,7 +12,7 @@
         <template #title>
           <div class="name">{{ currentUser.name }}</div>
         </template>
-        <van-button size="small" round class="update-btn">编辑资料</van-button>
+        <van-button size="small" round class="update-btn" :to="{name:'userProfile'}">编辑资料</van-button>
       </van-cell>
       <van-grid :border="false" class="data-info">
         <van-grid-item class="data-info-item">
@@ -52,7 +52,7 @@
       <van-grid-item class="nav-grid-item" icon-prefix="toutiao" icon="lishi" text="历史"/>
     </van-grid>
     <van-cell title="消息通知" is-link to="/vant/mobile.html"/>
-    <van-cell class="mb-10" title="小智同学" is-link to="index"/>
+    <van-cell class="mb-10" title="小智同学" is-link :to="{name:'userChat'}"/>
     <van-button type="default" block class="logout" v-if="user" @click="onLogout">退出登录</van-button>
   </div>
 </template>

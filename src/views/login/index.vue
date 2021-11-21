@@ -128,6 +128,8 @@ export default {
         Toast.success('登录成功')
         // 将后端返回的用户登录状态(token)放到Vuex容器中
         this.$store.commit('setUser', res.data.data)
+        // 在组件渲染之前先清除Layout的缓存
+        this.$store.commit('removeCachePage', 'LayoutIndex')
         // 登录成功，跳转回原来页面
         this.$router.back()
       } catch (err) {

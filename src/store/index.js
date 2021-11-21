@@ -8,7 +8,9 @@ const USER_KEY = 'toutiao-user'
 export default new Vuex.Store({
   state: {
     // 当前登录用户的登录状态（Token）
-    user: getItem(USER_KEY)
+    user: getItem(USER_KEY),
+    // 缓存页面
+    cachePages: ['LayoutIndex']
   },
   // 修改容器中的state（使用mutation）
   mutations: {
@@ -22,6 +24,18 @@ export default new Vuex.Store({
     removeUser (state) {
       state.user = null
       removeItem(USER_KEY)
+    },
+    // 添加缓存页
+    addCachePage (state, pageName) {
+      if (!state.cachePages.includes(pageName)) {
+        state.cachePages.push(pageName)
+      }
+    },
+    // 移除缓存页
+    removeCachePage (state, pageName) {
+      if (state.cachePages.includes(pageName)) {
+        state.cachePages.splice(state.cachePages.indexOf(pageName), 1)
+      }
     }
   },
   actions: {},

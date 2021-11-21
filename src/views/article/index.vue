@@ -198,6 +198,9 @@ export default {
       // 拿到被点击的那个评论
       this.replyComment = comment
     })
+    eventBus.on('closeReply', () => {
+      this.isReplyShow = false
+    })
   }
 }
 </script>

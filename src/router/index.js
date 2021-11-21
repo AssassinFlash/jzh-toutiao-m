@@ -27,7 +27,7 @@ const routes = [
       {
         path: '/video',
         name: 'video',
-        component: () => import('@/views/my/index')
+        component: () => import('@/views/video/index')
       },
       {
         path: '/my',
@@ -46,6 +46,16 @@ const routes = [
     name: 'article',
     component: () => import('@/views/article/index'),
     props: true // 开启props传参，会将路由参数作为props传到组件
+  },
+  {
+    path: '/user/profile',
+    name: 'userProfile',
+    component: () => import('@/views/userProfile/index')
+  },
+  {
+    path: '/user/chat',
+    name: 'userChat',
+    component: () => import('@/views/userChat/index')
   }
 ]
 
